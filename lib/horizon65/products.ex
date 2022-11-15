@@ -38,6 +38,17 @@ defmodule Horizon65.Products do
   def get_product!(id), do: Repo.get!(Product, id)
 
   @doc """
+  get selected product
+  """
+
+  def get_selected_product_query!(code) do
+    from(p in Product,
+      where: p.code == ^code,
+      select: %{code: p.code, name: p.name, price: p.price}
+    )
+  end
+
+  @doc """
   Creates a product.
 
   ## Examples

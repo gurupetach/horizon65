@@ -1,3 +1,6 @@
+<div class = "flex flex-row">
+<div>
+
 <table>
   <thead>
     <tr>
@@ -12,9 +15,38 @@
       <tr id={"product-#{product.id}"}>
         <td><%= product.name %></td>
         <td><%= product.price %></td>
+        <td><span><%= link "Add", to: "#", phx_click: "add", phx_value_code: product.code %></span></td>
 
         
       </tr>
     <% end %>
   </tbody>
 </table>
+</div>
+<div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Price</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="products">
+    <%= for product <- @selected_items do %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= product.price %></td>
+
+        
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div>
+</div>
+
+
