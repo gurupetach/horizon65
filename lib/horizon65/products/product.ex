@@ -5,7 +5,7 @@ defmodule Horizon65.Products.Product do
   schema "products" do
     field :code, :string
     field :name, :string
-    field :price, :integer
+    field :price, :float
 
     timestamps()
   end
