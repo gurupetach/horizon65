@@ -17,7 +17,7 @@ defmodule Horizon65Web.Router do
   scope "/", Horizon65Web do
     pipe_through :browser
 
-    get "/", PageController, :index
+    live "/", CartLive.Index, :index
   end
 
   # Other scopes may use custom stacks.
