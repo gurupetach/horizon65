@@ -1,38 +1,40 @@
-<div class = "flex flex-row space-x-56">
+<div class = "flex flex-col md:space-x-56 space-y-12 md:space-y-0 md:flex-row">
    <div class ="ml-24 w-1/2 bg-[#F3F3F3] rounded-2xl py-12">
       <table>
          <thead>
-            <tr class="text-xl">
+            <tr class="md:text-xl">
                <th>Product</th>
-               <th class="pl-24">Price</th>
-               <th class="pl-20">Add to Cart</th>
+               <th class="md:pl-24">Price</th>
+               <th class="md:pl-20">Add to Cart</th>
             </tr>
          </thead>
          <tbody id="products">
             <%= for product <- @products do %>
-            <tr id={"product-#{product.id}"} class="border-b  border-gray-700 text-xxl ">
+            <tr id={"product-#{product.id}"} class="border-b  border-gray-700 text-xl h-12 ">
                <td><%= product.name %></td>
-               <td class="pl-24"><%= product.price %></td>
-               <td class="pl-24"><span><%= link "Add", to: "#", phx_click: "add", phx_value_code: product.code %></span></td>
+               <td class="md:pl-24"><%= product.price %>€</td>
+               <td class="md:pl-24">
+               <button><%= link "Add", to: "#", phx_click: "add", class: "btn btn-primary flex-shrink-0 md:ml-4 bg-[#555C71] py-2 px-2 md:px-4 text-white rounded-md", phx_value_code: product.code %></button>
+               </td>
             </tr>
             <% end %>
          </tbody>
       </table>
    </div>
-   <div class="bg-[#F3F3F3] rounded-2xl py-12 w-1/2">
-      <h1 class="font-bold text-2xl">SELECTED PRODUCTS</h1>
+   <div class="ml-24 bg-[#F3F3F3] rounded-2xl py-12 w-1/2">
+      <h1 class="font-bold md:text-2xl">SELECTED PRODUCTS</h1>
       <table class="mt-4">
          <thead>
-            <tr class="text-2xl ">
+            <tr class="md:text-2xl ">
                <th>Product</th>
-               <th class="pl-24">Price</th>
+               <th class="md:pl-24">Price</th>
             </tr>
          </thead>
          <tbody id="products">
             <%= for product <- @selected_items do %>
             <tr class="even:bg-amber-100 odd:bg-blue-100 text-2xl ">
                <td><%= product.name %></td>
-               <td class="pl-24"><%= product.price %></td>
+               <td class="md:pl-24"><%= product.price %></td>
             </tr>
             <% end %>
          </tbody>
@@ -41,7 +43,7 @@
       <h5>Click checkout to see price</h5>
       <div class="flex mt-4 space-x-8">
       <div>
-      <button><%= link "CHECKOUT", to: "#", phx_click: "checkout", class: "btn btn-primary flex-shrink-0 ml-12 bg-[#555C71] py-2 px-4 text-white rounded-md" %></button>
+      <button><%= link "CHECKOUT", to: "#", phx_click: "checkout", class: "btn btn-primary flex-shrink-0 md:ml-12 bg-[#555C71] py-2 px-4 text-white rounded-md" %></button>
       </div>
 
       <div class="">
