@@ -17,6 +17,17 @@ config :horizon65, Horizon65Web.Endpoint,
   pubsub_server: Horizon65.PubSub,
   live_view: [signing_salt: "lxk2UeKT"]
 
+config :tailwind,
+  version: "3.2.4",
+  default: [
+    args: ~w(
+    --config=tailwind.config.js
+    --input=css/app.css
+    --output=../priv/static/assets/app.css
+  ),
+    cd: Path.expand("../assets", __DIR__)
+  ]
+
 # Configures the mailer
 #
 # By default it uses the "Local" adapter which stores the emails

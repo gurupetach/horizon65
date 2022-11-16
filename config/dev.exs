@@ -25,7 +25,8 @@ config :horizon65, Horizon65Web.Endpoint,
   secret_key_base: "WbLzfCChTG7Pz49sjF8B3IseNmrhin5fT+aXqC8G5hFSgWn2iVBTi0E8ySCP+GNa",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
   ]
 
 # ## SSL Support
