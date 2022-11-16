@@ -1,21 +1,21 @@
-<div class = "flex flex-row">
-<div>
+<div class = "flex flex-row space-x-56">
+<div class ="ml-24 w-1/2 bg-[#F3F3F3] rounded-2xl py-12">
 
 <table>
   <thead>
-    <tr>
+    <tr class="text-2xl">
       <th>Product</th>
-      <th>Price</th>
+      <th class="pl-24">Price</th>
 
-      <th></th>
+      <th class="pl-24">Add to Cart</th>
     </tr>
   </thead>
   <tbody id="products">
     <%= for product <- @products do %>
-      <tr id={"product-#{product.id}"}>
+      <tr id={"product-#{product.id}"} class="border-b  border-gray-700 text-2xl ">
         <td><%= product.name %></td>
-        <td><%= product.price %></td>
-        <td><span><%= link "Add", to: "#", phx_click: "add", phx_value_code: product.code %></span></td>
+        <td class="pl-24"><%= product.price %></td>
+        <td class="pl-24"><span><%= link "Add", to: "#", phx_click: "add", phx_value_code: product.code %></span></td>
 
         
       </tr>
