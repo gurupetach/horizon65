@@ -1,64 +1,54 @@
 <div class = "flex flex-row space-x-56">
-<div class ="ml-24 w-1/2 bg-[#F3F3F3] rounded-2xl py-12">
+   <div class ="ml-24 w-1/2 bg-[#F3F3F3] rounded-2xl py-12">
+      <table>
+         <thead>
+            <tr class="text-xl">
+               <th>Product</th>
+               <th class="pl-24">Price</th>
+               <th class="pl-20">Add to Cart</th>
+            </tr>
+         </thead>
+         <tbody id="products">
+            <%= for product <- @products do %>
+            <tr id={"product-#{product.id}"} class="border-b  border-gray-700 text-xxl ">
+               <td><%= product.name %></td>
+               <td class="pl-24"><%= product.price %></td>
+               <td class="pl-24"><span><%= link "Add", to: "#", phx_click: "add", phx_value_code: product.code %></span></td>
+            </tr>
+            <% end %>
+         </tbody>
+      </table>
+   </div>
+   <div class="bg-[#F3F3F3] rounded-2xl py-12 w-1/2">
+      <h1 class="font-bold text-2xl">SELECTED PRODUCTS</h1>
+      <table class="mt-4">
+         <thead>
+            <tr class="text-2xl ">
+               <th>Product</th>
+               <th class="pl-24">Price</th>
+            </tr>
+         </thead>
+         <tbody id="products">
+            <%= for product <- @selected_items do %>
+            <tr class="even:bg-amber-100 odd:bg-blue-100 text-2xl ">
+               <td><%= product.name %></td>
+               <td class="pl-24"><%= product.price %></td>
+            </tr>
+            <% end %>
+         </tbody>
+      </table>
+      <div class="border-b  border-gray-700"></div>
+      <h5>Click checkout to see price</h5>
+      <div class="flex mt-4 space-x-8">
+      <div>
+      <button><%= link "CHECKOUT", to: "#", phx_click: "checkout", class: "btn btn-primary flex-shrink-0 ml-12 bg-[#555C71] py-2 px-4 text-white rounded-md" %></button>
+      </div>
 
+      <div class="">
+      <%= @price  %>€
+         
+      </div>
+      </div>
 
-<table>
-  <thead>
-    <tr class="text-xl">
-      <th>Product</th>
-      <th class="pl-24">Price</th>
-
-      <th class="pl-20">Add to Cart</th>
-    </tr>
-  </thead>
-  <tbody id="products">
-    <%= for product <- @products do %>
-      <tr id={"product-#{product.id}"} class="border-b  border-gray-700 text-xxl ">
-        <td><%= product.name %></td>
-        <td class="pl-24"><%= product.price %></td>
-        <td class="pl-24"><span><%= link "Add", to: "#", phx_click: "add", phx_value_code: product.code %></span></td>
-
-        
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+   </div>
 </div>
-<div class="bg-[#F3F3F3] rounded-2xl py-12 w-1/2">
-<h1 class="font-bold text-2xl">SELECTED PRODUCTS</h1>
-
-<table class="mt-4">
-  <thead>
-    <tr class="text-2xl odd:bg-[#F6F6F67A] even:bg-white">
-      <th>Product</th>
-      <th class="pl-24">Price</th>
-
-    </tr>
-  </thead>
-  <tbody id="products">
-    <%= for product <- @selected_items do %>
-      <tr class="border-b  border-gray-700 text-2xl ">
-        <td><%= product.name %></td>
-        <td class="pl-24"><%= product.price %></td>
-        
-
-        
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<button><%= link "CHECKOUT", to: "#", phx_click: "checkout" %></button>
- <div class="mt-1">
-                     <.form
-              let={f}
-              for={:price}
-              id="merchant-form"
-              >
-                     <%= text_input f, :user_id, class: "user_dialog_input", value: @price %>
-</.form>
-                  </div>
-
-</div>
-</div>
-
-
