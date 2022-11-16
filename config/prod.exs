@@ -11,6 +11,21 @@ import Config
 # before starting your production server.
 config :horizon65, Horizon65Web.Endpoint, cache_static_manifest: "priv/static/cache_manifest.json"
 
+config :horizon65, Horizon65Web.Endpoint,
+  url: [schema: "https", host: "secret-taiga-74138.herokuapp.com", port: 443],
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  force_ssl: [rewrite_on: [:x_forwarded_proto]],
+  secret_key_base: "73BAPjneM9RnHeVsrPHDsXa/U9u6Pf8gx3VyehoQ1GlXKDv451S70X/FFs5Kwbvd",
+  check_origin: ["https://secret-taiga-74138.herokuapp.com", "//*.herokuapp.com"]
+
+# Configure your database
+config :horizon65, Horizon65.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  url: System.get_env("DATABASE_URL"),
+  pool_size: 18,
+  ssl: true,
+  ssl_opts: [log_level: :error]
+
 # Do not print debug messages in production
 config :logger, level: :info
 
