@@ -4,8 +4,7 @@ defmodule Horizon65Web.CartLive.Index do
   """
   use Horizon65Web, :live_view
   alias Horizon65.Repo
-  alias Horizon65.Products
-  alias Horizon65.Products.Product
+  alias Horizon65.{Rule, Products}
 
   @impl true
   def mount(_params, _session, socket) do
@@ -13,6 +12,7 @@ defmodule Horizon65Web.CartLive.Index do
       socket
       |> assign(:products, list_products())
       |> assign(:selected_items, [])
+      |> assign(:price, 0)
 
     {:ok, socket}
   end
@@ -24,20 +24,33 @@ defmodule Horizon65Web.CartLive.Index do
 
   @impl true
   def handle_event("add", %{"code" => code}, socket) do
-    # time = Timex.now()
     product = Products.get_selected_product_query!(code) |> Repo.one()
 
-    # selected_items =
-    #   socket.assigns.selected_items
-    #   |> IO.inspect(label: "================")
-    #   |> Map.put(time, product)
-    #   |> IO.inspect(label: "================")
-
-    selected_items =
-      (socket.assigns.selected_items ++ [product])
-      |> IO.inspect(label: "================")
+    selected_items = socket.assigns.selected_items ++ [product]
 
     {:noreply, assign(socket, :selected_items, selected_items)}
+  end
+
+  def handle_event("checkout", %{}, socket) do
+    voucher_count = Enum.count(socket.assigns.selected_items, fn x -> x.code == "VOUCHER" end)
+    tshirt_count = Enum.count(socket.assigns.selected_items, fn x -> x.code == "TSHIRT" end)
+    mug_count = Enum.count(socket.assigns.selected_items, fn x -> x.code == "MUG" end)
+
+    price =
+      Rule.calculate_price(%{
+        voucher_count: voucher_count,
+        tshirt_count: tshirt_count,
+        mug_count: mug_count
+      })
+
+    socket =
+      socket
+      |> assign(:voucher_count, voucher_count)
+      |> assign(:tshirt_count, tshirt_count)
+      |> assign(:mug_count, mug_count)
+      |> assign(:price, price)
+
+    {:noreply, socket}
   end
 
   defp apply_action(socket, :index, _params) do

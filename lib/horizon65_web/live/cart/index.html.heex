@@ -24,6 +24,7 @@
 </table>
 </div>
 <div>
+<h1>SELECTED PRODUCTS</h1>
 
 <table>
   <thead>
@@ -45,6 +46,16 @@
     <% end %>
   </tbody>
 </table>
+<button><%= link "CHECKOUT", to: "#", phx_click: "checkout" %></button>
+ <div class="mt-1">
+                     <.form
+              let={f}
+              for={:price}
+              id="merchant-form"
+              >
+                     <%= text_input f, :user_id, class: "user_dialog_input", value: @price %>
+</.form>
+                  </div>
 
 </div>
 </div>
